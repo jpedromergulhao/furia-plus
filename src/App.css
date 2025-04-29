@@ -1,38 +1,67 @@
-.App {
-  text-align: center;
+/* Estilos para NotFound */
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000000;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.not-found h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #FF003C;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.not-found p {
+    font-size: 1rem;
+    color: #9CA3AF;
+    margin-bottom: 2rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.back-home {
+    background-color: #7C3AED;
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.back-home:hover {
+    background-color: #5B21B6;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilos para DesktopWarning */
+.desktop-warning {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
+}
+
+.desktop-warning h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #7C3AED;
+}
+
+.desktop-warning p {
+    font-size: 1rem;
+    color: #9CA3AF;
+    margin-bottom: 1rem;
+}
+
+.desktop-warning strong {
+    color: #FFFFFF;
 }
