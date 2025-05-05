@@ -1,4 +1,3 @@
-/* Estilos para NotFound */
 .not-found {
     display: flex;
     flex-direction: column;
@@ -64,4 +63,32 @@
 
 .desktop-warning strong {
     color: #FFFFFF;
+}
+
+/* botão de chatbot */
+.chatbot-btn {
+    background-color: #7C3AED; 
+    border: none;
+    border-radius: 50%; 
+    padding: 5px 8px;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.5); 
+    position: fixed;
+    bottom: 90px; 
+    right: 20px; 
+    z-index: 1000; 
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-btn:hover {
+    background-color: #5B21B6; 
+    transform: scale(1.05); 
+}
+
+.chatbot-btn img {
+    height: 28px;
+    width: 28px;
+    transform: translateY(5%);
 }

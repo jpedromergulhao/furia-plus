@@ -1,0 +1,88 @@
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background-color: #0c0c0c;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 10;
+    border-top: 1px solid #222;
+  }
+  
+  .icons {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.2s ease;
+  }
+
+  nav button{
+    transform: translateY(-15%);
+  }
+  
+  .icons:active {
+    transform: scale(0.9);
+  }
+  
+  button.icons {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .more-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Container dos ícones extras */
+  .more {
+    position: absolute;
+    bottom: 100%;
+    right: 50%;
+    transform: translateX(50%);
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+  
+  .more a {
+    position: absolute;
+    opacity: 0;
+    pointer-events: auto;
+    transform: scale(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .more a:nth-child(1) {
+    bottom: 5px;
+    left: -5px;
+  }
+  
+  .more a:nth-child(2) {
+    bottom: 0px;
+    left: -35px;
+  }
+  
+  .more a:nth-child(3) {
+    bottom: 0px;
+    right: 70px;
+  }
+  
+  /* Quando o menu está ativo */
+  .more.show a {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Animação de esconder */
+  .more.hide a {
+    opacity: 0;
+    transform: scale(0);
+  }

@@ -11,7 +11,7 @@ import './Login.css';
 function Login() {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Controla o botão para o usuário não clicar mais de uma vez
     const { login } = useAuth();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -37,6 +37,13 @@ function Login() {
             const userCredential = await login(loginEmail, loginPassword);
             const user = userCredential.user;
 
+            // Verifica se o usuário fez a verificação de email
+            if (!user.emailVerified) {
+                alert("Você precisa verificar seu e-mail antes de entrar! 📧");
+                setIsLoading(false);
+                return;
+            }
+
             // Dados adicionais no Firestore
             const userDocRef = doc(db, "users", user.uid);
             const userDoc = await getDoc(userDocRef);
@@ -46,7 +53,7 @@ function Login() {
 
                 // Salva no Redux
                 dispatch(setUser({
-                    name: userData.name,
+                    name: userData.name || "Usuário(a)",
                     surname: userData.surname,
                     email: user.email,
                     profilePic: userData.profilePic || null,

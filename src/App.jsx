@@ -9,13 +9,15 @@ import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import Register from "./Pages/Register/Register";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import Home from "./Pages/Home/Home";
-import Roster from "./Pages/Roster/Roster";
 import Challenges from "./Pages/Challenges/Challenges";
 import Quizzes from "./Pages/Quizzes/Quizzes";
 import Lives from "./Pages/Lives/Lives";
-import Products from "./Pages/Products/Products";
 import Profile from "./Pages/Profile/Profile";
 import NavBar from "./components/NavBar/NavBar";
+import Rewards from "./Pages/Rewards/Rewards";
+import chatbotIcon from "./assets/message.png";
+import Chatbot from "./components/Chatbot/Chatbot";
+import './utils/authListener';
 
 // Componente para proteger rotas
 function ProtectedRoute({ element }) {
@@ -61,18 +63,30 @@ function DesktopWarning() {
 }
 
 function MainLayout() {
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+
   return (
     <>
       <Routes>
         <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
-        <Route path="/elenco" element={<ProtectedRoute element={<Roster />} />} />
         <Route path="/desafios" element={<ProtectedRoute element={<Challenges />} />} />
         <Route path="/quizzes" element={<ProtectedRoute element={<Quizzes />} />} />
+        <Route path="/recompensas" element={<ProtectedRoute element={<Rewards />} />} />
         <Route path="/lives" element={<ProtectedRoute element={<Lives />} />} />
-        <Route path="/produtos" element={<ProtectedRoute element={<Products />} />} />
         <Route path="/perfil" element={<ProtectedRoute element={<Profile />} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      <button
+        className="chatbot-btn"
+        aria-label="Botão do chatbot"
+        onClick={() => setIsChatbotOpen(true)}
+      >
+        <img src={chatbotIcon} alt="Ícone do chatbot" />
+      </button>
+
+      <Chatbot isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
+
       <NavBar />
     </>
   );

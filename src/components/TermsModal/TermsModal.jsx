@@ -41,11 +41,11 @@ function TermsModal({ onClose }) {
 
                     <h2>6. Contato</h2>
                     <p>
-                        Em caso de dúvidas ou solicitações relacionadas aos termos de uso, entre em contato pelo nosso suporte.
+                        Em caso de dúvidas entre em contato com o criado desse protótipo (jpedromergulhao.dev@gmail.com). Todos os emails de contato criados para o app são ficticios, eles foram criados apenas para fins ilustrativos.
                     </p>
 
                     <p className="thanks">Obrigado por fazer parte do Furia+!</p>
-                    
+
                     <button onClick={onClose} className="close-button">
                         fechar
                     </button>

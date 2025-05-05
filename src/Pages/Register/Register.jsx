@@ -5,7 +5,7 @@ import { validateEmail } from "../../utils/validation";
 import { Link, useNavigate } from "react-router-dom";
 import TermsModal from "../../components/TermsModal/TermsModal";
 import { auth } from "../../firebase"; 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
 
 function Register() {
@@ -38,11 +38,15 @@ function Register() {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
             const user = userCredential.user;
-            console.log("Usuário criado com sucesso:", user);
-            navigate("/");
+        
+            // Enviar e-mail de verificação
+            await sendEmailVerification(user);
+            alert("Cadastro realizado! Verifique seu e-mail antes de fazer login.");
+        
+            navigate("/"); 
         } catch (error) {
             console.error("Erro ao cadastrar usuário:", error);
-        alert("Houve um erro ao te registrar: " + error.message, " tente novamente!");
+            alert("Houve um erro ao te registrar: " + error.message + ". Tente novamente!");
         }
     };
 

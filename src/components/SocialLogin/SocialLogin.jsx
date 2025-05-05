@@ -29,7 +29,7 @@ function SocialLogin() {
             }
 
             const completeUser = {
-                name: user.displayName || userData.name || "Usuário",
+                name: user.displayName || userData.name || "Usuário(a)",
                 surname: userData.surname || "",
                 email: user.email,
                 profilePic: user.photoURL || userData.profilePic || "",

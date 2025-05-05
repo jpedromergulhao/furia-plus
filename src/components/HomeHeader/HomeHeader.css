@@ -1,0 +1,57 @@
+.home-header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.home-imgs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.home-logo {
+    height: 45px;
+}
+
+.home-avatar {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.home-greeting {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.home-filters {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;     
+}
+
+.home-filters::-webkit-scrollbar {
+    display: none;          
+}
+
+.home-filters button {
+    background-color: var(--dark-gray);
+    border: none;
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.home-filters .active {
+    background-color: var(--purple);
+}
+
