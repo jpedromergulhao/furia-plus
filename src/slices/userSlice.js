@@ -38,9 +38,11 @@ const userSlice = createSlice({
             state.profilePic = action.payload;
         },
         logoutUser: (state) => {
-            // Reseta o usuário ao fazer logout
             Object.assign(state, initialState);
-        }
+        },
+        addFurias: (state, action) => {
+            state.furias += action.payload;
+        },
     },
 });
 
@@ -52,7 +54,8 @@ export const {
     setAvailableChallenges,
     setAvailableQuizzes,
     setProfilePic,
-    logoutUser
+    logoutUser,
+    addFurias
 } = userSlice.actions;
 
 export default userSlice.reducer;

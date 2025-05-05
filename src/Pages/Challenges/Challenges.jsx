@@ -5,14 +5,13 @@ import { db } from "../../firebase";
 import {
   doc,
   getDoc,
-  setDoc,
   updateDoc,
   arrayUnion
 } from "firebase/firestore";
-import dayjs from "dayjs";
 import { setUser } from "../../slices/userSlice";
 import { allChallenges } from '../../utils/challenges';
 import { increment } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 
 function Challenges() {
@@ -56,6 +55,9 @@ function Challenges() {
   return (
     <div className="challenges-container">
       <h2>Desafios Ativos</h2>
+      <Link to='/quizzes'>
+        Ver Quizzes
+      </Link>
       <div className="challenges-grid">
         {allChallenges.map((challenge) => (
           <div

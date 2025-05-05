@@ -4,11 +4,13 @@
     background: #000000; 
     min-height: 100vh;
     color: #FFFFFF; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
   .challenges-container h2 {
     font-size: 2rem;
-    margin-bottom: 2rem;
     text-align: center;
     color: #FFFFFF;
     border-bottom: 2px solid #7C3AED; 
@@ -89,5 +91,21 @@
     background-color: #444;
     cursor: not-allowed;
     color: #9CA3AF; 
+  }
+
+  .challenges-container a{
+    padding: 8px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #7C3AED;
+    transition: background 0.3s ease;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  .challenges-container a:hover{
+    background-color: #5B21B6;
   }
   

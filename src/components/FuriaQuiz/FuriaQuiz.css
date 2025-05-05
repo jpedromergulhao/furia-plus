@@ -1,0 +1,114 @@
+.furia-quiz {
+  background-color: #000000;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.furia-quiz {
+  max-width: 600px;
+  height: fit-content;
+  margin: 0 auto;
+  background-color: #1A1A1A; 
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+}
+
+.furia-quiz h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #FFFFFF;
+}
+
+.timer {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #FF003C; 
+  font-family: 'Orbitron', sans-serif;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option-button {
+  background-color: #1A1A1A;
+  color: #FFFFFF;
+  padding: 1rem;
+  border: 2px solid #7C3AED;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.option-button:hover {
+  background-color: #7C3AED;
+  color: #000000;
+}
+
+.option-button.correct {
+  background-color: #00c853; 
+  border-color: #00c853;
+  color: #000000;
+}
+
+.option-button.wrong {
+  background-color: #FF003C; 
+  border-color: #FF003C;
+  color: #000000;
+}
+
+.quiz-results {
+  text-align: center;
+  background-color: #1A1A1A;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+}
+
+.quiz-results h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: #7C3AED;
+  margin-bottom: 1rem;
+}
+
+.quiz-results p {
+  font-size: 1rem;
+  color: #9CA3AF; 
+  margin: 0.5rem 0;
+}
+
+.retry-button {
+  background-color: #7C3AED;
+  color: #FFFFFF;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.retry-button:hover {
+  background-color: #9b4dff;
+}
+
+.countdown-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #33000d;
+  color: #FF003C;
+  border-left: 5px solid #FF003C;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: left;
+}
