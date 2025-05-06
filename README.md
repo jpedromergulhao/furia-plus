@@ -8,10 +8,10 @@ Furious App is a mobile gamified prototipe platform designed to engage users wit
 ### Home Screen
 ![Home Screen](./src/assets/home.png)
 
-### Map Screen
+### Quizz Screen
 ![Quizz Screen](./src/assets/quizz.png)
 
-### Missions Screen
+### Charbot Screen
 ![Chatbot Screen](./src/assets/chatbot.png)
 
 ## 🚀 Features
