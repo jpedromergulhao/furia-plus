@@ -102,7 +102,7 @@
   transition: background 0.3s;
 }
 
-.rewards-bt:hover {
+.rewards-btn:hover {
   background-color: var(--furia-red);
 }
 
