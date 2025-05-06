@@ -77,7 +77,3 @@ Ensure you configure your own Firebase project and replace the credentials in `f
 - Real-time ranking updates from Firestore
 - Chat feature for users
 - Enhanced analytics dashboard for admins
-
----
-
-Made with ❤️ using modern web technologies.
