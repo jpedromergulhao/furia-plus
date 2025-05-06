@@ -88,7 +88,7 @@ export function getRandomGreeting(name) {
 }
 
 // respostas do chatbot
-export function getBotReply(message, name) {
+export function getBotReply(message, name, user) {
   const normalized = sanitizeText(message);
 
   // Agenda / Próximos Jogos
@@ -659,6 +659,36 @@ A FURIA mostra sua força em todas as arenas! 🦁🔥`
       "{name}, tu sabia que a FURIA foi eleita por dois anos consecutivos, em 2020 e 2021, como a melhor organização de esportes eletrônicos no Prêmio eSports Brasil? E em 2022, foi apontada como a quinta maior organização de esportes eletrônicos do mundo pelo portal norte-americano Nerd Street."
     ];
     return getRandomFromArray(facts);
+  }
+
+  //Perguntas sobre o app
+  // Significado do nome FURIA
+  if (/(politica de privacidade|termos|termos de uso|politica|termo|politicas de privacidade|politicas|termo de uso)./.test(normalized)) {
+    return `Claro {name}, aqui estão os termos do app:
+    1. Cadastro de Conta
+    Para utilizar o Furia+, você deverá fornecer informações verdadeiras e atualizadas. Você é responsável por manter a confidencialidade da sua conta e senha.
+    2. Privacidade
+    Suas informações pessoais são importantes para nós. Elas serão utilizadas apenas conforme nossa política de privacidade, respeitando a LGPD (Lei Geral de Proteção de Dados).
+    3. Exclusão de Conta
+    Você pode solicitar a exclusão da sua conta a qualquer momento através da página de Perfil. Ao excluir sua conta, todos os seus dados serão permanentemente apagados dos nossos sistemas.
+    4. Alterações nos Termos
+    Podemos atualizar estes termos periodicamente. Recomendamos que você revise os termos regularmente para se manter informado sobre quaisquer alterações.
+    5. Uso Indevido
+    O uso indevido da plataforma, como tentativa de violação de segurança ou atos ilícitos, poderá resultar no encerramento imediato da conta.
+    6. Contato
+    Em caso de dúvidas entre em contato com o criado desse protótipo (jpedromergulhao.dev@gmail.com). Todos os emails de contato criados para o app são ficticios, eles foram criados apenas para fins ilustrativos.`;
+  }
+
+  if (/(foto de perfil|trocar foto|escolher outra foto|trocar imagem|imagem de perfil|escolher outra imagem|trocar a foto|trocar a imagem|escolher imagem|escolher foto|escolher a imagem|escolher a foto)./.test(normalized)) {
+    return "Sim, você pode trocar sua foto de perfil clicando na sua foto de perfil na página <Link to='/perfil'>Perfil<Link>";
+  }
+
+  if (/(foto de perfil|trocar foto|escolher outra foto|trocar imagem|imagem de perfil|escolher outra imagem|trocar a foto|trocar a imagem|escolher imagem|escolher foto|escolher a imagem|escolher a foto)./.test(normalized)) {
+    return "Sim, você pode trocar sua foto de perfil clicando na sua foto de perfil na página <Link to='/perfil'>Perfil<Link>";
+  }
+
+  if (/(deletar|como deletar|excluir|como excluir|apagar|como apagar|deletar conta|deletar perfil|deletar a conta|deletar o perfil|deletar a minha conta|deletar o meu perfil|deletar minha conta|deletar o meu perfil|apagar conta|apagar perfil|apagar a conta|apagar o perfil|apagar a minha conta|apagar o meu perfil|apagar minha conta|apagar o meu perfil|excluir conta|excluir perfil|excluir a conta|excluir o perfil|excluir a minha conta|excluir o meu perfil|excluir minha conta|excluir o meu perfil)./.test(normalized)) {
+    return "{name}, para deletar sua conta você precisa ir até a página de perfil e clicar no botão deletar. Após isso você confirma e faz uma reautenticação. Mas lembre-se de que você irá perder todos os seus dados";
   }
 
   // Fallback geral

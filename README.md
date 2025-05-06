@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# ⚡ Furious App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Furious App is a mobile gamified prototipe platform designed to engage users with dynamic challenges, weekly rankings, and customizable profiles.
 
-## Available Scripts
+### Login Screen
+![Login Screen](./src/assets/login.png)
 
-In the project directory, you can run:
+### Home Screen
+![Home Screen](./src/assets/home.png)
 
-### `npm start`
+### Map Screen
+![Quizz Screen](./src/assets/quizz.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Missions Screen
+![Chatbot Screen](./src/assets/chatbot.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Features
 
-### `npm test`
+### 🔐 Authentication
+- **Firebase Authentication**: Users can sign up or log in using Google, Facebook, or Email/Password.
+- **Reauthentication**: For sensitive actions like account deletion, the app requires users to reauthenticate based on their login provider.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 📸 Profile Customization
+- Users can upload and crop a profile picture.
+- Images are uploaded to **Firebase Storage**, and the download URL is saved both in **Redux** and Firebase.
+- When the app is reloaded or the user logs in again, their profile picture persists.
 
-### `npm run build`
+### 📊 Weekly Rankings
+- A fixed weekly ranking displays the top 5 users based on "Fúrias" (points).
+- Visual rewards using emojis 🥇🥈🥉 for top-ranked users.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 📁 Account Management
+- Users can log out or delete their account.
+- Account deletion is confirmed with a prompt and requires reauthentication for security.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠 Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Frontend
+- **HTML/CSS/JavaScript**: For markup, styling, and interactions.
+- **React.js**: SPA architecture and component-based UI.
+- **React-Router**: Handles routing between pages like login, profile, and challenges.
+- **Redux**: Manages user state globally, including authentication and profile image.
+- **AOS.js (Animate on Scroll)**: Provides smooth scroll-based animations to enhance UI/UX.
 
-### `npm run eject`
+### Backend and Storage
+- **Firebase Authentication**: Manages user sign-in methods and authentication states.
+- **Firebase Firestore**: Stores user data and app-related collections.
+- **Firebase Storage**: Stores user-uploaded profile pictures with persistent URLs.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📂 Project Structure (Simplified)
+```
+/src
+├── assets/                 # Images and icons
+├── components/             # Shared components (e.g. buttons, cards)
+├── pages/
+│   ├── Login.jsx
+│   ├── Profile.jsx         # Profile with image upload and account actions
+│   └── Home.jsx
+├── slices/
+│   └── userSlice.js        # Redux slice for user management
+├── App.js                  # Main app entry with routes
+└── firebase.js             # Firebase config and exports
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🧪 How to Run Locally
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+git clone https://github.com/yourusername/furious-app.git
+cd furious-app
+npm install
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Ensure you configure your own Firebase project and replace the credentials in `firebase.js`.
 
-## Learn More
+## 🧠 Future Improvements
+- Real-time ranking updates from Firestore
+- Chat feature for users
+- Enhanced analytics dashboard for admins
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Made with ❤️ using modern web technologies.

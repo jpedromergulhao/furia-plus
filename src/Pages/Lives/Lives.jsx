@@ -35,7 +35,7 @@ function Lives() {
                     points: increment(20)
                 });
                 setShowNotification(true);
-                setTimeout(() => setShowNotification(false), 5000); // Exibe por 5s
+                setTimeout(() => setShowNotification(false), 5000); 
             }
         };
 
@@ -94,7 +94,7 @@ function Lives() {
                             allowFullScreen
                             className="video-frame"
                         />
-                        <button className="close-btn" onClick={() => setSelectedGame(null)}>X</button>
+                        <button className="modal-close-btn" onClick={() => setSelectedGame(null)}>X</button>
                     </div>
                 </div>
             )}

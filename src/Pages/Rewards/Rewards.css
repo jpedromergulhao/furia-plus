@@ -16,6 +16,12 @@
   background-color: var(--black);
   color: var(--white);
   padding-bottom: 80px;
+  text-align: center;
+}
+
+.rewards-container a{
+  color: #7C3AED;
+  font-weight: bold;
 }
 
 .rewards-container h2{
@@ -84,7 +90,7 @@
   background-color: var(--furia-red);
 }
 
-button {
+.rewards-btn {
   font-family: 'Orbitron', sans-serif;
   background-color: var(--vibrant-purple);
   color: var(--white);
@@ -96,7 +102,7 @@ button {
   transition: background 0.3s;
 }
 
-button:hover {
+.rewards-bt:hover {
   background-color: var(--furia-red);
 }
 

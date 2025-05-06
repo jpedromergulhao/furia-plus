@@ -110,9 +110,14 @@ const Rewards = () => {
     return (
         <div className="rewards-container">
             <h2>Recompensas</h2>
-            
+
             <span>
                 Saldo atual de furias: <strong>{user.furias}</strong> ⚡️
+            </span>
+
+            <span>
+                Use os cuponos na nossa <br/>
+                <a href="https://www.furia.gg/" target="_blank" rel="noopener noreferrer"> LOJA OFICIAL</a>
             </span>
 
             {rewards.map(reward => (
@@ -126,7 +131,7 @@ const Rewards = () => {
                         reward.unlocked ? (
                             <div>
                                 <p className="cupon-revealed">Cupom: <strong>{reward.cupon}</strong></p>
-                                <button onClick={(e) => {
+                                <button className="rewards-btn" onClick={(e) => {
                                     e.stopPropagation();
                                     handleCopy(reward.cupon);
                                 }}>Copiar código</button>
@@ -162,7 +167,7 @@ const Rewards = () => {
                                 <button onClick={closeModal}>Cancelar</button>
                             </>
                         ) : (
-                            <button onClick={closeModal}>Fechar</button>
+                            <button className="rewards-btn" onClick={closeModal}>Fechar</button>
                         )}
                     </div>
                 </div>
