@@ -7,8 +7,8 @@ const greetingTemplates = [
   "Bem-vindo ao território da FURIA, {name}! 🐆 Eu sou o Fuzzy, seu guia oficial. Qual é a missão?",
   "Oi {name}! 😎 Já tomou sua dose de hype hoje? Vem comigo que o Fuzzy manja dos paranauê!",
   "{name}, cheguei chegando! 💣 Manda a braba aí que eu resolvo!",
-  "Faaaaaala {name}! 🚀 Bora dar aquela moral pro fã mais casca da FURIA?",
-  "To on, {name}! 🔛 Se quiser lineup, agenda ou meme bom, é só pedir! 😜",
+  "Faaaaaala {name}! 🚀 Bora dar aquela moral pro(a) fã mais casca da FURIA?",
+  "To on, {name}! 🔛 Se quiser lineup, curiosidades, saber mais sobre os times... é só pedir! 😜",
   "E aí, {name}! ⚡️ Se for sobre a FURIA, o Fuzzy resolve no clutch!",
   "{name}, se prepara porque aqui é informação na velocidade de bala da AWP! 🎯 Me diz aí no que posso ajudar!"
 ];
@@ -111,7 +111,7 @@ export function getBotReply(message, name) {
   }
 
   //CS
-  if (/(comecou|estreou|iniciou|inicio|estreia|comeco).*(cs|csgo|cs2|countercs|go|counter-?strike)/.test(normalized)) {
+  if (/(comecou|estreou|iniciou|inicio|estreia|comeco|me fala|me conta).*(cs|csgo|cs2|countercs|go|counter-?strike)/.test(normalized)) {
     const replies = [
       "A FURIA fez sua estreia no CS:GO em 2017, competindo pela primeira vez na DreamHack Summer 2017 — e desde então só evoluímos! 🎮",
       "{name}, a FURIA estreou no cenário de CS:GO em 2017 na DreamHack Summer 2017 – olha o quanto crescemos desde então! 🚀"
@@ -594,6 +594,11 @@ export function getBotReply(message, name) {
     return "A FURIA foi fundada em 2017 por Jaime Pádua e André Akkari com o objetivo de transformar o cenário dos esports no Brasil e no mundo! 🚀🇧🇷";
   }
 
+  // O que é FURIA
+  if (/(o que|oque|oq|me fale|sobre|saber|me conta).*(furia)/.test(normalized)) {
+    return "A FURIA é uma organização brasileira que atua nas modalidades de e-sports. Fundada em 2017, a FURIA possui o time de Counter-Strike que melhor desempenha nas competições internacionais mais recentes, sempre a frente nas colocações entre equipes do país. 🔥";
+  }
+
   // Onde está localizada a FURIA
   if (/(onde|localizada|fica|sede|local|base).*(furia)/.test(normalized)) {
     return "A FURIA tem sede nos Estados Unidos, mas também possui forte presença no Brasil e times em ação no mundo todo! 🌍🔥";
@@ -650,7 +655,8 @@ A FURIA mostra sua força em todas as arenas! 🦁🔥`
       "A FURIA já teve uma collab de moda com marcas como New Era e está sempre conectada à cena streetwear.",
       "Matheus Comparatto também pilota pela FURIA Redram na Porsche Cup, ao lado de Caio Castro!",
       "A FURIA possui elencos competitivos em diversas modalidades: CS2, LoL, Valorant, Rainbow Six, entre outras.",
-      "Em 2025, a FURIA FC estreou na Kings League Americas, com partidas transmitidas no canal do Casimiro e na Twitch oficial!"
+      "Em 2025, a FURIA FC estreou na Kings League Americas, com partidas transmitidas no canal do Casimiro e na Twitch oficial!",
+      "{name}, tu sabia que a FURIA foi eleita por dois anos consecutivos, em 2020 e 2021, como a melhor organização de esportes eletrônicos no Prêmio eSports Brasil? E em 2022, foi apontada como a quinta maior organização de esportes eletrônicos do mundo pelo portal norte-americano Nerd Street."
     ];
     return getRandomFromArray(facts);
   }

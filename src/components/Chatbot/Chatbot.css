@@ -1,4 +1,3 @@
-/* Paleta de cores */
 :root {
   --black: #000000;
   --dark-gray: #1A1A1A;
@@ -15,7 +14,6 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.8);
-  /* fundo escurecido */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,6 +111,7 @@
   border-radius: 0 8px 8px 0;
   cursor: pointer;
   font-size: 14px;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
 .chat-message.bot.thinking {

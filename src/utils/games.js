@@ -1,0 +1,92 @@
+export const games = [
+    {
+        id: 1,
+        team: "lol",
+        url: "https://www.youtube.com/watch?v=DrfdqqXtcI8",
+        title: "LOUD x FURIA | MD1 - 1° Fase | LTA Sul | 2ª Etapa | Ilha das Lendas",
+    },
+    {
+        id: 2,
+        team: "lol",
+        url: "https://www.youtube.com/watch?v=Ret26bfu3dM",
+        title: "FUR x RED | LTA Sul 2025 - Etapa 2: Fase de Grupos | FURIA x RED Canids Kalunga | Jogo 1",
+    },
+    {
+        id: 3,
+        team: "lol",
+        url: "https://www.youtube.com/watch?v=V8vlfmkCKTM",
+        title: "LOUD x FURIA | Jogo 1 - MD3 - 2° Fase | LTA Sul | 2ª Etapa | Ilha das Lendas",
+    },
+    {
+        id: 4,
+        team: "lol",
+        url: "https://www.youtube.com/watch?v=XQmTFU4fq2g",
+        title: "FURIA x RED CANIDS | Jogo 2 - MD3 - 2° Fase | LTA Sul | 2ª Etapa | Ilha das Lendas",
+    },
+    {
+        id: 5,
+        team: "cs",
+        url: "https://www.youtube.com/watch?v=IW4k8woQ27Q",
+        title: "Liquid vs. FURIA - ESL Pro League Season 21 - ROUND #2",
+    },
+    {
+        id: 6,
+        team: "cs",
+        url: "https://www.youtube.com/watch?v=qxnWlZRLUTs",
+        title: "Falcons vs. FURIA - ESL Pro League Season 21 - ROUND #4",
+    },
+    {
+        id: 7,
+        team: "cs",
+        url: "https://www.youtube.com/watch?v=DTGCs508u78",
+        title: "FaZe vs. FURIA - IEM Rio 2024 - Group A",
+    },
+    {
+        id: 8,
+        team: "cs",
+        url: "https://www.youtube.com/watch?v=LyG4zjYSoMw",
+        title: "FURIA vs. MOUZ - IEM Rio 2024 - Group A",
+    },
+    {
+        id: 9,
+        team: "r6",
+        url: "https://www.youtube.com/watch?v=GNziJEOo8ks",
+        title: "FaZe Clan vs. FURIA // Six Invitational 2025 - Finals // Day 2",
+    },
+    {
+        id: 10,
+        team: "r6",
+        url: "https://www.youtube.com/watch?v=h42ur-pYbJ8",
+        title: "DarkZero vs. FURIA // Six Invitational 2025 - Playoffs // Day 6",
+    },
+    {
+        id: 11,
+        team: "val",
+        url: "https://www.youtube.com/watch?v=Fd5F22-PcvE",
+        title: "FUR vs MIBR - Tixinha Invitational OFF//SEASON 24 #TXIBYBONOXS",
+    },
+    {
+        id: 12,
+        team: "fut",
+        url: "https://www.youtube.com/watch?v=L0QQjjgWV-s",
+        title: "KINGS LEAGUE BRAZIL – RODADA 8 | TODOS OS JOG",
+    },
+    {
+        id: 13,
+        team: "fut",
+        url: "https://www.youtube.com/watch?v=jWupo9wvwcU",
+        title: "KINGS LEAGUE BRAZIL – RODADA 7 | TODOS OS JOGOS",
+    },
+    {
+        id: 14,
+        team: "fut",
+        url: "https://www.youtube.com/watch?v=61TuaWv9Oyw",
+        title: "KINGS LEAGUE BRAZIL – RODADA 6 | TODOS OS JOGOS",
+    },
+    {
+        id: 15,
+        team: "redr",
+        url: "https://www.youtube.com/watch?v=Ho7aylrS0LE",
+        title: "ET.3 | INTERLAGOS | CORRIDA 02 | TEMPORADA 2025",
+    },   
+]
