@@ -24,7 +24,13 @@ import r6Wallpaper from '../../assets/R6_Wallpaper.png';
 
 // Função para recortar imagem
 const getCroppedImg = async (imageSrc, maxSize = 1024) => {
-    const image = await createImage(imageSrc);
+    let image = null;
+    try {
+        image = await createImage(imageSrc);
+    } catch (error) {
+        console.error("Erro ao processar a foto: " + error);
+        return null;
+    }
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
@@ -103,7 +109,7 @@ function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const fileInputRef = useRef(null);
-    const [uploading, setUploading] = useState(false);
+    const [isProcesing, setIsProcessing] = useState(false);
     const [unlockedWallpapers, setUnlockedWallpapers] = useState([]);
 
     const generateWeeklyRanking = () => {
@@ -117,32 +123,32 @@ function Profile() {
 
     const [weeklyRanking, setWeeklyRanking] = useState(JSON.parse(localStorage.getItem("weeklyRanking")) || []);
 
-   useEffect(() => {
-    const savedRanking = JSON.parse(localStorage.getItem("weeklyRanking"));
-    const lastUpdated = localStorage.getItem("rankingLastUpdated");
+    useEffect(() => {
+        const savedRanking = JSON.parse(localStorage.getItem("weeklyRanking"));
+        const lastUpdated = localStorage.getItem("rankingLastUpdated");
 
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0]; 
-    const isSunday = today.getDay() === 0;
-    
-    setUnlockedWallpapers(user.unlockedWallpapers);
+        const today = new Date();
+        const todayStr = today.toISOString().split('T')[0];
+        const isSunday = today.getDay() === 0;
 
-    // Se for domingo e ainda não foi atualizado hoje, gera novo ranking
-    if (isSunday && lastUpdated !== todayStr) {
-        const newRanking = generateWeeklyRanking();
-        localStorage.setItem("weeklyRanking", JSON.stringify(newRanking));
-        localStorage.setItem("rankingLastUpdated", todayStr);
-        setWeeklyRanking(newRanking);
-    } else if (savedRanking) {
-        setWeeklyRanking(savedRanking);
-    } else {
-        // Primeira vez acessando (qualquer dia)
-        const initialRanking = generateWeeklyRanking();
-        localStorage.setItem("weeklyRanking", JSON.stringify(initialRanking));
-        localStorage.setItem("rankingLastUpdated", todayStr);
-        setWeeklyRanking(initialRanking);
-    }
-}, [user.unlockedWallpapers]);
+        setUnlockedWallpapers(user.unlockedWallpapers);
+
+        // Se for domingo e ainda não foi atualizado hoje, gera novo ranking
+        if (isSunday && lastUpdated !== todayStr) {
+            const newRanking = generateWeeklyRanking();
+            localStorage.setItem("weeklyRanking", JSON.stringify(newRanking));
+            localStorage.setItem("rankingLastUpdated", todayStr);
+            setWeeklyRanking(newRanking);
+        } else if (savedRanking) {
+            setWeeklyRanking(savedRanking);
+        } else {
+            // Primeira vez acessando (qualquer dia)
+            const initialRanking = generateWeeklyRanking();
+            localStorage.setItem("weeklyRanking", JSON.stringify(initialRanking));
+            localStorage.setItem("rankingLastUpdated", todayStr);
+            setWeeklyRanking(initialRanking);
+        }
+    }, [user.unlockedWallpapers]);
 
     const handleLogout = () => {
         dispatch(logoutUser());
@@ -159,6 +165,7 @@ function Profile() {
 
         if (!currentUser) return alert("🚫 Ops! Parece que ninguém está autenticado no momento.");
 
+        setIsProcessing(true)
         try {
             await reauthenticateUser(currentUser);
             await deleteDoc(doc(db, "users", user.id));
@@ -167,8 +174,11 @@ function Profile() {
             localStorage.clear();
             setTimeout(() => navigate("/"), 100);
         } catch (error) {
+            setIsProcessing(false);
             console.error("Erro ao deletar conta:", error);
             alert("🛑 Erro ao apagar a conta. Se ainda quiser continuar, tente mais uma vez.");
+        } finally {
+            setIsProcessing(false);
         }
     };
 
@@ -178,12 +188,16 @@ function Profile() {
             return alert("👉 Por favor, escolha uma imagem para enviar!");
         }
 
-        setUploading(true);
+        setIsProcessing(true)
         try {
             const reader = new FileReader();
             reader.onloadend = async () => {
                 try {
                     const cropped = await getCroppedImg(reader.result, 1024);
+                    if (cropped === null){
+                        setIsProcessing(false);
+                        return alert("⚠️ Erro ao processar a imagem. Tente novamente")
+                    }
                     const storage = getStorage();
                     const storageRef = ref(storage, `profilePics/${user.id}.jpg`);
                     await uploadString(storageRef, cropped, "data_url");
@@ -193,14 +207,14 @@ function Profile() {
                     console.error("Erro ao recortar ou fazer upload da imagem:", err);
                     alert("🚫 Erro ao carregar a imagem. Experimente outra foto! 🤳");
                 } finally {
-                    setUploading(false);
+                    setIsProcessing(false);
                 }
             };
             reader.readAsDataURL(file);
         } catch (error) {
             console.error("Erro ao processar imagem:", error);
             alert("Erro ao enviar imagem.");
-            setUploading(false);
+            setIsProcessing(false);
         }
     };
 
@@ -232,7 +246,6 @@ function Profile() {
                         style={{ display: "none" }}
                         onChange={handleFileChange}
                     />
-                    {uploading && <Loader />}
                 </div>
                 <div className="profile-info" data-aos="fade-left">
                     <h2>{user.name} {user.surname?.split(" ")[0]}</h2>
@@ -293,6 +306,8 @@ function Profile() {
                     </ul>
                 </div>
             </div>
+
+            {isProcesing && <Loader />}
         </div>
     );
 }

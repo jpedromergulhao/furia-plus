@@ -45,7 +45,7 @@ export default function Home() {
     ];
 
     return (
-        <div className="home">
+        <div className="home" id="home-driver">
             <HomeHeader
                 userName={userName}
                 profilePic={user.profilePic}

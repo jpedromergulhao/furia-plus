@@ -1,4 +1,4 @@
-# ⚡ Furious App
+# ⚡ FURIA+
 
 Furious App is a mobile gamified prototipe platform designed to engage users with dynamic challenges, weekly rankings, and customizable profiles.
 
@@ -11,7 +11,7 @@ Furious App is a mobile gamified prototipe platform designed to engage users wit
 ### Quizz Screen
 ![Quizz Screen](./src/assets/quizz.png)
 
-### Charbot Screen
+### Chatbot Screen
 ![Chatbot Screen](./src/assets/chatbot.png)
 
 ## 🚀 Features
@@ -41,6 +41,7 @@ Furious App is a mobile gamified prototipe platform designed to engage users wit
 - **React-Router**: Handles routing between pages like login, profile, and challenges.
 - **Redux**: Manages user state globally, including authentication and profile image.
 - **AOS.js (Animate on Scroll)**: Provides smooth scroll-based animations to enhance UI/UX.
+- **Driver.js**: Provides a smooth tour of the app's tools and buttons.
 
 ### Backend and Storage
 - **Firebase Authentication**: Manages user sign-in methods and authentication states.

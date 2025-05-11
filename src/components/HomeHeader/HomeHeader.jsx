@@ -11,7 +11,7 @@ export default function HomeHeader({ userName, profilePic, categories, activeCat
                 <img src={profilePic || defaultPhoto} alt="Perfil" className="home-avatar" />
             </div>
             <span className="home-greeting">Olá, {userName}! 🏆</span>
-            <div className="home-filters">
+            <div className="home-filters" id="filter-driver">
                 {categories.map((cat) => (
                     <button
                         key={cat.key}
