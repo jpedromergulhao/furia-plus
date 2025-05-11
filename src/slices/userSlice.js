@@ -10,6 +10,11 @@ const initialState = {
     availableRewards: [],
     availableQuizzes: [],
     availableChallenges: [],
+    usedCoupons: [],
+    unlockedWallpapers: [],
+    loginStreak: 0,
+    lastLoginDate: null
+
 };
 
 const userSlice = createSlice({
@@ -43,6 +48,21 @@ const userSlice = createSlice({
         addFurias: (state, action) => {
             state.furias += action.payload;
         },
+        setFurias: (state, action) => {
+            state.furias = action.payload;
+        },
+        setUsedCoupons: (state, action) => {
+            state.usedRewards = action.payload;
+        },
+        setUnlockedWallpapers: (state, action) => {
+            state.unlockedWallpapers = action.payload;
+        },
+        setLoginStreak: (state, action) => {
+            state.loginStreak = action.payload;
+        },
+        setLastLoginDate: (state, action) => {
+            state.lastLoginDate = action.payload;
+        }
     },
 });
 
@@ -55,7 +75,12 @@ export const {
     setAvailableQuizzes,
     setProfilePic,
     logoutUser,
-    addFurias
+    addFurias,
+    setFurias,
+    setUsedCoupons,
+    setUnlockedWallpapers,
+    setLoginStreak,
+    setLastLoginDate
 } = userSlice.actions;
 
 export default userSlice.reducer;

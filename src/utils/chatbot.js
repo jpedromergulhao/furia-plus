@@ -15,11 +15,11 @@ const greetingTemplates = [
 
 const fallbackMessages = [
   "Desculpa, {name}, não entendi muito bem... 🤔 Tente perguntar de outro jeito!",
-  "Hmm... essa eu não sei responder ainda 😅. Você pode tentar algo como 'agenda' ou 'produtos'.",
+  "Hmm... essa eu não sei responder ainda 😅. Você pode tentar algo como 'me fale sobre a furia' ou 'quais são os títulos da furia?'.",
   "Não reconheci essa pergunta, {name}. Mas tô aprendendo com cada conversa! 💡",
-  "Ops! Ainda não tenho uma resposta pra isso. Mas posso falar sobre a FURIA ou os próximos jogos!",
+  "Ops! Ainda não tenho uma resposta pra isso. Mas posso falar sobre a FURIA, como os títulos, curiosidades ou sobre algum time em específico, manda aí!",
   "Essa foi difícil 😵‍💫. Tente perguntar sobre CS, LOL ou os desafios do app.",
-  "Calma lá, {name} 😄! Me pergunta algo como 'quando é o próximo jogo?' ou 'quantas moedas eu tenho?'.",
+  "Calma lá, {name} 😄! Me pergunta algo como 'quando é o próximo jogo?' ou 'quantas furias eu tenho?'.",
   "Ainda não saquei essa... 🤖💤 Mas posso te contar curiosidades da FURIA ou te ajudar com o app!",
   "Sou só um bot em treinamento 🧠✨. Tenta reformular sua pergunta?",
   "Ué! Não entendi 🤨. Mas sei bastante sobre a FURIA, os times e até os produtos da loja!",
@@ -536,7 +536,7 @@ export function getBotReply(message, name, user) {
     return getRandomFromArray(replies).replace("{name}", getUserName(name));
   }
 
-  if (/(o que|oque|qual|sobre).*(furia).*(redram|automobilismo|porsche)/.test(normalized)) {
+  if (/(o que|oque|qual|oq|sobre).*(furia).*(redram|automobilismo|porsche)/.test(normalized)) {
     const replies = [
       "A FURIA Redram é a nova divisão de automobilismo da FURIA Esports, competindo na Porsche Cup com pilotos como Caio Castro e Matheus Comparatto. Um novo território, mas com a mesma garra! 🏎️🔥",
       "{name}, a FURIA Redram representa nossa entrada no mundo das corridas! Participamos da Porsche Cup com um time competitivo e cheio de atitude nas pistas! 🏁"
@@ -590,28 +590,33 @@ export function getBotReply(message, name, user) {
   }
 
   // Como a FURIA começou
-  if (/(como|quando|origem|fundação|história|começou|começaram).*(furia)/.test(normalized)) {
+  if (/(como|quando|origem|fundação|história|começou|orig|começaram).*(furia)/.test(normalized)) {
     return "A FURIA foi fundada em 2017 por Jaime Pádua e André Akkari com o objetivo de transformar o cenário dos esports no Brasil e no mundo! 🚀🇧🇷";
   }
 
   // O que é FURIA
-  if (/(o que|oque|oq|me fale|sobre|saber|me conta).*(furia)/.test(normalized)) {
+  if (/(o que|oque|oq|me fale|me fala|fala|sobre|saber|me conta).*(furia)/.test(normalized)) {
     return "A FURIA é uma organização brasileira que atua nas modalidades de e-sports. Fundada em 2017, a FURIA possui o time de Counter-Strike que melhor desempenha nas competições internacionais mais recentes, sempre a frente nas colocações entre equipes do país. 🔥";
   }
 
   // Onde está localizada a FURIA
-  if (/(onde|localizada|fica|sede|local|base).*(furia)/.test(normalized)) {
+  if (/(onde|localizada|localizacao|loc|fica|sede|local|base).*(furia)/.test(normalized)) {
     return "A FURIA tem sede nos Estados Unidos, mas também possui forte presença no Brasil e times em ação no mundo todo! 🌍🔥";
   }
 
   // Quem são os fundadores da FURIA
-  if (/(quem|fundador|criador|criou|fez).*(furia)/.test(normalized)) {
+  if (/(quem|fundador|fundadores|criadores|criador|criou|fez).*(furia)/.test(normalized)) {
     return "A FURIA foi fundada por Jaime Pádua, ex-advogado e empresário, e André Akkari, campeão mundial de poker. Juntos, criaram uma potência nos esports! 🧠🎮";
   }
 
   // Significado do nome FURIA
-  if (/(significado|nome|por que|porque|chama|furia).*(nome|significa|significação)/.test(normalized)) {
+  if (/(significado|nome|por que|porque|chama|pq|furia).*(nome|significa|significacao|significa)/.test(normalized)) {
     return "O nome FURIA representa a intensidade, garra e espírito competitivo da organização em todas as frentes: esports, cultura e esporte tradicional! 💥🖤";
+  }
+
+  // Animal na logo
+  if (/(animal|logo|mascote|pantera|bicho|feroz|simbolo|quem.*no.*logo|qual.*animal)/.test(normalized)) {
+    return "O animal no logo da FURIA é uma pantera negra! 🐆 Ela simboliza força, velocidade e astúcia — tudo que a FURIA representa dentro e fora do servidor. 🖤🔥";
   }
 
   // Títulos da FURIA no geral
@@ -658,11 +663,10 @@ A FURIA mostra sua força em todas as arenas! 🦁🔥`
       "Em 2025, a FURIA FC estreou na Kings League Americas, com partidas transmitidas no canal do Casimiro e na Twitch oficial!",
       "{name}, tu sabia que a FURIA foi eleita por dois anos consecutivos, em 2020 e 2021, como a melhor organização de esportes eletrônicos no Prêmio eSports Brasil? E em 2022, foi apontada como a quinta maior organização de esportes eletrônicos do mundo pelo portal norte-americano Nerd Street."
     ];
-    return getRandomFromArray(facts);
+    return getRandomFromArray(facts).replace("{name}", getUserName(name));
   }
 
   //Perguntas sobre o app
-  // Significado do nome FURIA
   if (/(politica de privacidade|termos|termos de uso|politica|termo|politicas de privacidade|politicas|termo de uso)./.test(normalized)) {
     return `Claro {name}, aqui estão os termos do app:
     1. Cadastro de Conta
@@ -683,12 +687,70 @@ A FURIA mostra sua força em todas as arenas! 🦁🔥`
     return "Sim, você pode trocar sua foto de perfil clicando na sua foto de perfil na página <Link to='/perfil'>Perfil<Link>";
   }
 
-  if (/(foto de perfil|trocar foto|escolher outra foto|trocar imagem|imagem de perfil|escolher outra imagem|trocar a foto|trocar a imagem|escolher imagem|escolher foto|escolher a imagem|escolher a foto)./.test(normalized)) {
-    return "Sim, você pode trocar sua foto de perfil clicando na sua foto de perfil na página <Link to='/perfil'>Perfil<Link>";
+  if (/(deletar|como deletar|excluir|como excluir|apagar|como apagar|deletar conta|deletar perfil|deletar a conta|deletar o perfil|deletar a minha conta|deletar o meu perfil|deletar minha conta|deletar o meu perfil|apagar conta|apagar perfil|apagar a conta|apagar o perfil|apagar a minha conta|apagar o meu perfil|apagar minha conta|apagar o meu perfil|excluir conta|excluir perfil|excluir a conta|excluir o perfil|excluir a minha conta|excluir o meu perfil|excluir minha conta|excluir o meu perfil)./.test(normalized)) {
+    return ("{name}, para deletar sua conta você precisa ir até a página de perfil e clicar no botão deletar. Após isso você confirma e faz uma reautenticação. Mas lembre-se de que você irá perder todos os seus dados").replace("{name}", getUserName(name));
   }
 
-  if (/(deletar|como deletar|excluir|como excluir|apagar|como apagar|deletar conta|deletar perfil|deletar a conta|deletar o perfil|deletar a minha conta|deletar o meu perfil|deletar minha conta|deletar o meu perfil|apagar conta|apagar perfil|apagar a conta|apagar o perfil|apagar a minha conta|apagar o meu perfil|apagar minha conta|apagar o meu perfil|excluir conta|excluir perfil|excluir a conta|excluir o perfil|excluir a minha conta|excluir o meu perfil|excluir minha conta|excluir o meu perfil)./.test(normalized)) {
-    return "{name}, para deletar sua conta você precisa ir até a página de perfil e clicar no botão deletar. Após isso você confirma e faz uma reautenticação. Mas lembre-se de que você irá perder todos os seus dados";
+  if (/(saldo|moedas|furias|pontos|quanto eu tenho|minhas moedas|meus pontos|meu saldo|quantas moedas|quantas furias)/.test(normalized)) {
+    if (user.furias < 50) {
+      return ("{name} seu saldo atual de furias é: {furias} ⚡️. Ainda não dá para resgatar recompensas, que tal fazer alguns desafios? 🔥")
+        .replace("{name}", getUserName(name))
+        .replace("{furias}", user.furias);
+    } else {
+      return ("{name} seu saldo atual de furias é: {furias} ⚡️. Você já consegue resgatar algo nas recompensas 👀")
+        .replace("{name}", getUserName(name))
+        .replace("{furias}", user.furias);
+    }
+  }
+
+  // Oi
+  if (/(oi|ola|fala)/.test(normalized)) {
+    const replies = [
+      "Oi {name}, como você está? Me fala, o que você gostaria de saber sobre a FURIA?",
+      "Fala {name}, tudo certinho? O que você quer saber sobre a FURIA hoje?",
+      "E aí {name}, beleza? Manda ver, o que você quer descobrir sobre a FURIA?",
+      "Salve {name}! Pronto pra saber tudo sobre a FURIA?",
+      "Opa {name}, tudo em paz? Tô aqui pra te contar tudo sobre a FURIA!",
+      "Olá {name}! Curioso sobre a FURIA? Manda sua pergunta!",
+      "Oi {name}! Bora conversar sobre a FURIA?"
+    ];
+    return getRandomFromArray(replies).replace("{name}", getUserName(name));
+  }
+
+  // Tudo bem?
+  if (/(tudo bem|como esta|como você esta|tudo certo|tudo tranquilo|tranquilo|bem|esta bem|voce esta bem|td bem|vc esta bem|como vc esta|td certo|contigo|cntg)/.test(normalized)) {
+    const replies = [
+      "Por aqui está tudo bem! Obrigado por perguntar, {name}. Me fala, o que você gostaria de saber sobre a FURIA?",
+      "Tudo certo por aqui, {name}, e por aí? Tem algo que queria saber sobre a FURIA?",
+      "Tô de boa, {name}! E você? Bora falar da FURIA?",
+      "Tudo tranquilo por aqui, {name}. Curioso pra saber mais sobre a FURIA?",
+      "Tudo na paz! Valeu por perguntar, {name}. Já sabe o que quer descobrir da FURIA?",
+      "Tô bem sim, {name}, obrigado! E você, firme? O que manda sobre a FURIA?",
+      "Tudo indo, {name}! Se quiser saber algo da FURIA, é só dizer.",
+      "Por aqui tá tudo certo, {name}. Bora trocar uma ideia sobre a FURIA?"
+    ];
+    return getRandomFromArray(replies).replace("{name}", getUserName(name));
+  }
+
+  // Nome do bot
+  if (/(fuzzy|nome do bot|nome do chatbot|como se chama|qual seu nome|seu nome|vc se chama|você se chama)/.test(normalized)) {
+    const replies = [
+      "Eu me chamo Fuzzy! 🐾 Um nome que mistura lógica flexível e o carinho de um mascote da FURIA. 😄",
+      "Pode me chamar de Fuzzy! Meu nome vem de 'fuzzy logic', uma forma de pensar mais flexível — do jeito FURIA de ser. 🔥",
+      "Sou o Fuzzy, seu guia peludo e inteligente aqui na FURIA! 🐆 Pronto pra te ajudar com o que quiser saber.",
+      "Fuzzy na área! 👊 Um bot com nome inspirado na lógica fuzzy e com alma de mascote feroz da FURIA. Vamos nessa?",
+    ];
+    return getRandomFromArray(replies);
+  }
+
+  // Nome do bot
+  if (/(por que|pq|explique seu nome|explique o seu nome|porque|por que do nome|pq do nome|porque do nome|inspiração do nome|inspiração).*(fuzzy)/.test(normalized)) {
+    const replies = [
+      "Meu nome mistura lógica flexível e o carinho de um mascote da FURIA. 🐆",
+      "Meu nome vem de 'fuzzy logic', uma forma de pensar mais flexível — do jeito FURIA de ser. 🔥",
+      "Meu nome é inspirado na lógica fuzzy com alma de mascote feroz da FURIA.",
+    ];
+    return getRandomFromArray(replies);
   }
 
   // Fallback geral

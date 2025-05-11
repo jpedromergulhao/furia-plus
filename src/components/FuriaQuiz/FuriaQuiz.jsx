@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addFurias } from "../../slices/userSlice";
+import { setFurias } from "../../slices/userSlice";
 import { QUESTIONS } from "../../utils/questions";
 import './FuriaQuiz.css';
+import { getDoc, runTransaction } from "firebase/firestore";
+import Loader from "../Loader/Loader";
 
 const SCORE_RULES = {
     easy: [0, 6, 6, 6, 10, 10],
@@ -10,67 +12,121 @@ const SCORE_RULES = {
     hard: [0, 0, 10, 15, 15, 20]
 };
 
-function FuriaQuiz({ userName, level }) {
+function FuriaQuiz({ userRef, level }) {
     const dispatch = useDispatch();
+    const QUIZ_TIME_LIMIT = 30;
 
     const [questions, setQuestions] = useState([]);
     const [current, setCurrent] = useState(0);
     const [selected, setSelected] = useState(null);
     const [correctCount, setCorrectCount] = useState(0);
     const [finished, setFinished] = useState(false);
-    const [startTime, setStartTime] = useState(Date.now());
-    const [timeLeft, setTimeLeft] = useState(30);
-
+    const [timeLeft, setTimeLeft] = useState(QUIZ_TIME_LIMIT);
     const [canEarnPoints, setCanEarnPoints] = useState(true);
     const [countdown, setCountdown] = useState(0);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [started, setStarted] = useState(false);
+    const [lastQuizTimestamp, setLastQuizTimestamp] = useState(null);
+    const intervalRef = useRef(null);
 
-    useEffect(() => {
-        generateRandomQuestions();
-
-        const lastQuizTimestamp = localStorage.getItem("lastQuizTimestamp");
+    const finishQuiz = useCallback(async (lastQuizTimestamp) => {
+        setFinished(true);
+        const score = SCORE_RULES[level][correctCount];
         const now = Date.now();
         const THREE_HOURS = 3 * 60 * 60 * 1000;
 
-        if (lastQuizTimestamp && now - parseInt(lastQuizTimestamp) < THREE_HOURS) {
-            const remaining = THREE_HOURS - (now - parseInt(lastQuizTimestamp));
-            setCanEarnPoints(false);
-            setCountdown(remaining);
+        // Se já passou três horas desde o último quizz, soma as furias ao saldo do usuário
+        if (!lastQuizTimestamp || now - lastQuizTimestamp >= THREE_HOURS) {
+            if (score > 0) {
+                setIsProcessing(true);
+                try {
+                    //Atualiza a quantidade de furias no firebase
+                    await runTransaction(userRef.firestore, async (transaction) => {
+                        const userSnap = await transaction.get(userRef);
+                        const currentFurias = userSnap.data().furias || 0;
 
-            const interval = setInterval(() => {
+                        transaction.update(userRef, {
+                            furias: currentFurias + score,
+                            lastQuizTimestamp: now
+                        });
+                    });
+
+                    // Atualiza a quantidade de furias no redux de acordo com o firebase
+                    const updatedSnap = await getDoc(userRef);
+                    dispatch(setFurias(updatedSnap.data().furias));
+
+                } catch (err) {
+                    console.error("Erro ao incrementar furias do quizz:", err);
+                }
+                setIsProcessing(false);
+            }
+        }
+    }, [level, correctCount, dispatch, userRef]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (questions.length === 0 && !started) {
+                setQuestions([]);
+            }
+
+            const userSnap = await getDoc(userRef);
+            const lastTimestamp = userSnap.data()?.lastQuizTimestamp;
+            setLastQuizTimestamp(lastTimestamp);
+            const now = Date.now();
+            const THREE_HOURS = 3 * 60 * 60 * 1000;
+
+            if (lastTimestamp && now - lastTimestamp < THREE_HOURS) {
+                const remaining = THREE_HOURS - (now - lastTimestamp);
+                setCanEarnPoints(false);
+                setCountdown(remaining);
+            }
+        };
+
+        fetchData();
+    }, [level, userRef, questions.length, started]);
+
+    useEffect(() => {
+        if (!canEarnPoints && countdown > 0 && !intervalRef.current) {
+            intervalRef.current = setInterval(() => {
                 setCountdown(prev => {
                     if (prev <= 1000) {
-                        clearInterval(interval);
+                        clearInterval(intervalRef.current);
+                        intervalRef.current = null;
                         setCanEarnPoints(true);
                         return 0;
                     }
                     return prev - 1000;
                 });
             }, 1000);
-
-            return () => clearInterval(interval);
         }
-    }, [level]);
+
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            }
+        };
+    }, [canEarnPoints, countdown]);
 
     useEffect(() => {
         if (!finished && timeLeft > 0) {
             const timer = setInterval(() => setTimeLeft(t => t - 1), 1000);
             return () => clearInterval(timer);
         } else if (timeLeft <= 0) {
-            finishQuiz();
+            finishQuiz(lastQuizTimestamp);
         }
-    }, [timeLeft, finished]);
+    }, [timeLeft, finished, lastQuizTimestamp, finishQuiz]);
 
+    // função para gerar as questões do quiz
     const generateRandomQuestions = () => {
-        const shuffled = QUESTIONS[level]
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 5);
+        const shuffled = [...QUESTIONS[level]].sort(() => 0.5 - Math.random()).slice(0, 5);
         setQuestions(shuffled);
         setCurrent(0);
         setSelected(null);
         setCorrectCount(0);
         setFinished(false);
-        setStartTime(Date.now());
         setTimeLeft(30);
+        setStarted(true);
     };
 
     const handleAnswer = (option) => {
@@ -84,28 +140,14 @@ function FuriaQuiz({ userName, level }) {
                 setCurrent(prev => prev + 1);
                 setSelected(null);
             } else {
-                finishQuiz();
+                finishQuiz(lastQuizTimestamp);
             }
         }, 1000);
     };
 
-    const finishQuiz = () => {
-        setFinished(true);
-        const score = SCORE_RULES[level][correctCount];
-        const now = Date.now();
-        const THREE_HOURS = 3 * 60 * 60 * 1000;
-
-        const lastQuizTimestamp = localStorage.getItem("lastQuizTimestamp");
-        if (!lastQuizTimestamp || now - parseInt(lastQuizTimestamp) >= THREE_HOURS) {
-            if (score > 0) {
-                dispatch(addFurias(score));
-                localStorage.setItem("lastQuizTimestamp", now.toString());
-            }
-        }
-    };
-
     const resetQuiz = () => {
-        generateRandomQuestions();
+        setQuestions([]);
+        setStarted(false);
     };
 
     const formatCountdown = (ms) => {
@@ -117,18 +159,60 @@ function FuriaQuiz({ userName, level }) {
         return `${hours}h ${minutes}m ${seconds}s`;
     };
 
+    const quizLevel = (level) => {
+        let currentLevel = "";
+
+        switch (level) {
+            case "easy":
+                currentLevel = "fácil";
+                break;
+            case "moderate":
+                currentLevel = "moderado";
+                break;
+            case "hard":
+                currentLevel = "difícil";
+                break;
+            default:
+                currentLevel = level;
+        }
+
+        return currentLevel;
+    }
+
+    if (!started) {
+        const SCORE = SCORE_RULES[level];
+        const LOWER_SCORE = SCORE[0];
+        const MAX_SCORE = SCORE[SCORE.length - 1];
+
+        return (
+            <div className="quiz-start">
+                <p>
+                    Você terá <strong>30s</strong> para responder <strong>5 perguntas</strong> de nível <strong>{quizLevel(level)}</strong>.
+                </p>
+                <p>
+                    A pontuação para esse quiz vai de <strong>{LOWER_SCORE}</strong> à <strong>{MAX_SCORE}</strong>.
+                </p>
+                <h3>Boa sorte!</h3>
+                <button className="retry-button" onClick={generateRandomQuestions}>Começar Quiz</button>
+            </div>
+        );
+    }
+
     if (finished) {
         const timeTaken = Math.max(0, 30 - timeLeft);
         return (
             <div className="quiz-results">
                 <h2>Quiz finalizado!</h2>
-                <p>{userName}, você acertou {correctCount} de 5 perguntas.</p>
-                <p>Tempo total: {timeTaken} segundos</p>
-                <p>Fúrias ganhas: {SCORE_RULES[level][correctCount]}</p>
+                <p>Acertos: <strong>{correctCount}/5</strong></p>
+                <p>Tempo total: <strong>{timeTaken}s</strong></p>
+
+                {canEarnPoints && (
+                    <p>Furias ganhas: <strong>{SCORE_RULES[level][correctCount]}</strong></p>
+                )}
 
                 {!canEarnPoints && (
                     <p className="countdown-message">
-                        ⚠️ Você já fez o quiz recentemente. Para somar pontos, tente novamente em: <strong>{formatCountdown(countdown)}</strong>
+                        ⚠️ Para somar pontos, tente novamente em: <strong>{formatCountdown(countdown)}</strong>
                     </p>
                 )}
 
@@ -137,7 +221,7 @@ function FuriaQuiz({ userName, level }) {
         );
     }
 
-    if (!questions.length) return <p>Carregando perguntas...</p>;
+    if (!questions.length) return <Loader />;
 
     return (
         <div className="furia-quiz">
@@ -155,6 +239,8 @@ function FuriaQuiz({ userName, level }) {
                     </button>
                 ))}
             </div>
+
+            {isProcessing && <Loader />}
         </div>
     );
 }

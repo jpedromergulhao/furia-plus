@@ -27,6 +27,9 @@ function Chatbot({ isOpen, onClose }) {
         if (match) {
           const [, path, label] = match;
           return <Link key={index} to={path}>{label}</Link>;
+        } else {
+          // Retorna como texto comum caso o match falhe
+          return <span key={index}>{part}</span>;
         }
       } else {
         return <span key={index}>{part.replace('{name}', name)}</span>;
@@ -69,7 +72,7 @@ function Chatbot({ isOpen, onClose }) {
     setUserMessage("");
     setIsThinking(true);
 
-    const botReply = getBotReply(userMessage, userName);
+    const botReply = getBotReply(userMessage, userName, user);
 
     setTimeout(() => {
       setIsThinking(false);

@@ -27,11 +27,10 @@ export default function Home() {
             userId: user.id,
             newsId,
             dispatch,
-            user,
         });
 
         const shareText = encodeURIComponent(`${title}\n\nConfira mais em: ${url}\n#FURIA #Esports`);
-        window.open(`https://api.whatsapp.com/send?text=${shareText}`, "_blank");
+        window.open(`https://api.whatsapp.com/send?text=${shareText}`, "_blank", "noopener noreferrer");
     };
 
     const categories = [

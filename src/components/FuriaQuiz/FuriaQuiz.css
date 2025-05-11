@@ -1,7 +1,7 @@
 .furia-quiz {
   background-color: #000000;
   padding: 2rem;
-  min-height: 100vh;
+  height: fit-content;
 }
 
 .furia-quiz {
@@ -64,7 +64,8 @@
   color: #000000;
 }
 
-.quiz-results {
+.quiz-results,
+.quiz-start {
   text-align: center;
   background-color: #1A1A1A;
   padding: 2rem;
@@ -90,6 +91,7 @@
   color: #FFFFFF;
   padding: 0.75rem 1.5rem;
   margin-top: 1.5rem;
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   font-family: 'Orbitron', sans-serif;
@@ -111,4 +113,15 @@
   font-weight: bold;
   border-radius: 8px;
   text-align: left;
+}
+
+.quiz-start{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quiz-start h3{
+   font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
 }

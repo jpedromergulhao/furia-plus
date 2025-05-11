@@ -1,92 +1,89 @@
 export const allChallenges = [
     {
       id: "assistir-jogo-ao-vivo",
-      title: "Assistir jogo ao vivo",
-      description: "Assista à transmissão da FURIA ao vivo.",
-      furias: 5,
+      title: "Assistir jogos",
+      description: "Assista as transmissões da FURIA na página de lives e ganhe a cada 30 minutos assistidos.",
+      furias: 20,
+      link: "/lives"
     },
     {
       id: "compartilhar-noticia",
       title: "Compartilhar uma notícia",
       description: "Compartilhe qualquer notícia da FURIA.",
       furias: 2,
+      link: "/home"
     },
     {
-      id: "login-streak",
+      id: "login-streak-3",
       title: "Login por 3 dias seguidos",
       description: "Faça login por 3 dias consecutivos.",
-      furias: 8,
+      furias: 10,
+    },
+    {
+      id: "login-streak-10",
+      title: "Login por 10 dias seguidos",
+      description: "Faça login por 10 dias consecutivos.",
+      furias: 50,
+    },
+    {
+      id: "login-streak-30",
+      title: "Login por 30 dias seguidos",
+      description: "Faça login por 30 dias consecutivos.",
+      furias: 100,
     },
     {
       id: "quiz-facil",
       title: "Quiz FURIA - Nível Fácil",
       description: "Responda ao quiz sobre a história da FURIA.",
-      furias: 5,
+      furias: 10,
+      link: "/quizzes"
     },
     {
       id: "quiz-moderado",
       title: "Quiz FURIA - Nível Moderado",
       description: "Mostre que você conhece a FURIA em um nível intermediário.",
-      furias: 7,
+      furias: 15,
+      link: "/quizzes"
     },
     {
       id: "quiz-dificil",
       title: "Quiz FURIA - Nível Difícil",
       description: "Teste seu conhecimento hardcore sobre a FURIA.",
-      furias: 10,
+      furias: 20,
+      link: "/quizzes"
     },
     {
       id: "formulario-pessoal",
       title: "Formulário Pessoal",
       description: "Preencha um formulário com seus dados e preferências.",
-      furias: 15,
-    },
-    {
-      id: "upload-documento",
-      title: "Verificação de Identidade",
-      description: "Envie um documento oficial e valide sua identidade com AI.",
-      furias: 20,
-    },
-    {
-      id: "vincular-rede-social",
-      title: "Vincular rede social",
-      description: "Conecte seu Instagram ou Twitter ao perfil.",
-      furias: 10,
+      furias: 100,
+      link: "/quizzes"
     },
     {
       id: "seguir-furia",
       title: "Seguir a FURIA nas redes",
       description: "Siga a FURIA no Instagram, Twitter ou TikTok.",
-      furias: 4,
-    },
-    {
-      id: "compartilhar-perfil",
-      title: "Compartilhar seu perfil",
-      description: "Envie o link do seu perfil em sites como Faceit ou Steam.",
-      furias: 8,
-    },
-    {
-      id: "validar-perfil-esports",
-      title: "Validar perfil de e-sports",
-      description: "Deixe a IA analisar seu perfil e comprovar que é fã mesmo.",
-      furias: 12,
+      furias: 20,
+      link: "https://www.instagram.com/furiagg/"
     },
     {
       id: "participar-evento-furia",
       title: "Participar de evento da FURIA",
       description: "Compareça a um evento presencial ou digital da FURIA.",
-      furias: 10,
+      furias: 50,
     },
     {
       id: "compra-produto",
       title: "Comprar produto oficial",
       description: "Compre um item na loja oficial da FURIA.",
-      furias: 6,
+      furias: 50,
+      link: "https://www.furia.gg/"
     },
     {
       id: "convidar-amigo",
       title: "Convidar um amigo",
       description: "Convide um amigo para criar uma conta e participar.",
-      furias: 5,
+      furias: 20,
+      link: "https://api.whatsapp.com/send?text=Entre no app FURIA+ e fique por dentro de tudo da furia: https://furia-plus.vercel.app/\n#FURIA #Esports"
     }
   ]

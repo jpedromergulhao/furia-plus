@@ -1,65 +1,46 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { addFurias } from "../../slices/userSlice";
-import { db } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
-import Particles from "react-tsparticles";
-import { loadFirePreset } from "tsparticles-preset-fire";
-
+import { useDispatch } from "react-redux";
+import { setFurias } from "../../slices/userSlice";
+import { getDoc, increment, updateDoc } from "firebase/firestore";
 import './UserForm.css';
+import Loader from "../Loader/Loader";
 
-function UserForm() {
+function UserForm({ userData, userRef }) {
     const dispatch = useDispatch();
-    const currentUser = useSelector((state) => state.user);
     const { register, handleSubmit, reset } = useForm();
-    const userName = currentUser.name?.split(" ")[0] || "FURIA Fan";
-    const isProfileCompleted = currentUser?.address;
-
-    const [showParticles, setShowParticles] = useState(false);
-
-    const particlesInit = async (engine) => {
-        await loadFirePreset(engine);
-    };
+    const [isProcessing, setIsProcessing] = useState(false);
+    const userName = userData?.userName;
+    const isProfileCompleted = userData?.address;
 
     const onSubmit = async (data) => {
-        try {
-            const updatedUser = {
-                ...currentUser,
-                ...data,
-                furias: currentUser.furias + 100,
-            };
+        setIsProcessing(true);
 
-            await setDoc(doc(db, "users", currentUser.id), updatedUser);
-            dispatch(addFurias(100));
-            setShowParticles(true);
-            setTimeout(() => setShowParticles(false), 5000); 
+        try {
+            // Adiciona 100 furias ao saldo no firebase
+            await updateDoc(userRef, {
+                furias: increment(100),
+                ...data
+            })
+
+            // Atualiza a quantidade de furias no redux de acordo com o firebase
+            const updatedSnap = await getDoc(userRef);
+            dispatch(setFurias(updatedSnap.data().furias));
+
             reset();
         } catch (error) {
             console.error("Erro ao salvar dados no Firebase:", error);
         }
+
+        setIsProcessing(false)
     };
 
     if (isProfileCompleted) {
         return (
             <div className="user-form-container completed-card">
                 <h2>Formulário completo!</h2>
-                <p>{userName} você já garantiu <strong>+100 Fúrias 🔥</strong>.<br />Tudo certo por aqui!</p>
+                <p>{userName} você já garantiu <strong>+100 Furias 🔥</strong>.<br />Tudo certo por aqui!</p>
                 <div className="emoji-feedback">🎉</div>
-                {showParticles && (
-                    <Particles
-                        id="tsparticles"
-                        init={particlesInit}
-                        options={{
-                            preset: "fire",
-                            background: { color: "#000000" },
-                            fullScreen: { enable: true, zIndex: 1 },
-                            particles: {
-                                color: { value: "#7C3AED" } 
-                            }
-                        }}
-                    />
-                )}
             </div>
         );
     }
@@ -112,20 +93,8 @@ function UserForm() {
                     Enviar e ganhar Fúrias 🔥
                 </button>
             </form>
-            {showParticles && (
-                <Particles
-                    id="tsparticles"
-                    init={particlesInit}
-                    options={{
-                        preset: "fire",
-                        background: { color: "#000000" },
-                        fullScreen: { enable: true, zIndex: 1 },
-                        particles: {
-                            color: { value: "#7C3AED" } 
-                        }
-                    }}
-                />
-            )}
+
+            {isProcessing && <Loader />}
         </div>
     );
 }

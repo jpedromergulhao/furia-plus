@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import './Lives.css';
 import { games } from "../../utils/games";
-import { doc, updateDoc, increment } from "firebase/firestore";
+import { doc, updateDoc, increment, getDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { setFurias } from "../../slices/userSlice";
 
 function Lives() {
     const [selectedTeam, setSelectedTeam] = useState("todos");
     const [selectedGame, setSelectedGame] = useState(null);
     const [timer, setTimer] = useState(0);
     const [showNotification, setShowNotification] = useState(false);
+    const dispatch = useDispatch();
 
+    // Função de filtro 
     const filteredGames = selectedTeam === "todos"
         ? games
         : games.filter(game => game.team === selectedTeam);
@@ -19,7 +23,7 @@ function Lives() {
         if (selectedGame) {
             interval = setInterval(() => {
                 setTimer(prev => prev + 1);
-            }, 60000); 
+            }, 60000);
         } else {
             setTimer(0);
         }
@@ -27,22 +31,35 @@ function Lives() {
         return () => clearInterval(interval);
     }, [selectedGame]);
 
+    // useEffect para dar pontos ao usuário a cada 30 minutos assistidos
     useEffect(() => {
         const givePoints = async () => {
             if (auth.currentUser) {
                 const userRef = doc(db, "users", auth.currentUser.uid);
-                await updateDoc(userRef, {
-                    points: increment(20)
-                });
-                setShowNotification(true);
-                setTimeout(() => setShowNotification(false), 5000); 
+
+                try {
+                    // Adiciona 20 furias ao firebase
+                    await updateDoc(userRef, {
+                        furias: increment(20)
+                    });
+
+                    // Atualiza a quantidade de furias no redux de acordo com o firebase
+                    const updatedSnap = await getDoc(userRef);
+                    dispatch(setFurias(updatedSnap.data().furias));
+
+                    // Mostra o modal de +20 furias
+                    setShowNotification(true);
+                } catch (err) {
+                    console.error("Erro ao salvar dados no Firebase:", err);
+                }
+                setTimeout(() => setShowNotification(false), 5000);
             }
         };
 
-        if (timer !== 0 && timer % 30 === 0) {
+        if (timer !== 0 && timer % 1 === 0) {
             givePoints();
         }
-    }, [timer]);
+    }, [timer, dispatch]);
 
     const getVideoId = (url) => {
         const match = url.match(/v=([^&]+)/);
@@ -51,7 +68,7 @@ function Lives() {
 
     return (
         <div className="lives-container">
-            <h1 className="lives-title">Partidas ao Vivo & Reprises</h1>
+            <h1 className="lives-title">lives & Reprises</h1>
 
             <div className="filter-buttons">
                 {["todos", "lol", "cs", "r6", "val", "fut", "redr"].map(team => (
@@ -101,7 +118,7 @@ function Lives() {
 
             {showNotification && (
                 <div className="notification">
-                    +20 fúrias por assistir!
+                    +20 furias!
                 </div>
             )}
         </div>
