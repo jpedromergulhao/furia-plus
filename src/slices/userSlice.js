@@ -13,8 +13,8 @@ const initialState = {
     usedCoupons: [],
     unlockedWallpapers: [],
     loginStreak: 0,
-    lastLoginDate: null
-
+    lastLoginDate: null,
+    isQuizFinished: false
 };
 
 const userSlice = createSlice({
@@ -62,6 +62,9 @@ const userSlice = createSlice({
         },
         setLastLoginDate: (state, action) => {
             state.lastLoginDate = action.payload;
+        },
+        setIsQuizFinished: (state, action) => {
+            state.isQuizFinished = action.payload;
         }
     },
 });
@@ -80,7 +83,8 @@ export const {
     setUsedCoupons,
     setUnlockedWallpapers,
     setLoginStreak,
-    setLastLoginDate
+    setLastLoginDate,
+    setIsQuizFinished
 } = userSlice.actions;
 
 export default userSlice.reducer;

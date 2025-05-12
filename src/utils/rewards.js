@@ -89,4 +89,22 @@ export const initialRewards = [
         cost: 50,
         unlocked: false,
     },
+    {
+        id: 11,
+        type: "Wallpaper",
+        name: "Wallpaper Oficial - FURIA FC",
+        description: "Baixe o wallpaper exclusivo da FURIA FC",
+        src: "FC",
+        cost: 50,
+        unlocked: false,
+    },
+    {
+        id: 12,
+        type: "Wallpaper",
+        name: "Wallpaper Oficial - FURIA RedRam",
+        description: "Baixe o wallpaper exclusivo da FURIA RedRam",
+        src: "RED",
+        cost: 50,
+        unlocked: false,
+    },
 ];

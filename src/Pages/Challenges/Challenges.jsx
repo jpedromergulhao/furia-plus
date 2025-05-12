@@ -35,6 +35,7 @@ function Challenges() {
   const handleUpdate = async (userRef, challenge) => {
 
     try { //Atualiza a quantidade de furias e os desafios completados no firebase
+      if (challenge)
       await updateDoc(userRef, {
         furias: increment(challenge.furias),
         completedChallenges: arrayUnion(challenge.id),

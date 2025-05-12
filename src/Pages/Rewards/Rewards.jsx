@@ -8,6 +8,8 @@ import csWallpaper from '../../assets/CS_Wallpaper.png';
 import lolWallpaper from '../../assets/LOL_Wallpaper.png';
 import valWallpaper from '../../assets/Valorant_Wallpaper.png';
 import r6Wallpaper from '../../assets/R6_Wallpaper.png';
+import fcWallpaper from '../../assets/FC_Wallpaper.png';
+import redWallpaper from '../../assets/RED_Wallpaper.png';
 import { setUser } from "../../slices/userSlice";
 import Loader from "../../components/Loader/Loader";
 
@@ -85,7 +87,9 @@ function getImage(src) {
         CS: csWallpaper,
         LOL: lolWallpaper,
         Val: valWallpaper,
-        R6: r6Wallpaper
+        R6: r6Wallpaper,
+        FC: fcWallpaper,
+        RED: redWallpaper
     };
     return images[src] || '';
 }

@@ -18,18 +18,21 @@ export const allChallenges = [
       title: "Login por 3 dias seguidos",
       description: "Faça login por 3 dias consecutivos.",
       furias: 10,
+      link: "/perfil"
     },
     {
       id: "login-streak-10",
       title: "Login por 10 dias seguidos",
       description: "Faça login por 10 dias consecutivos.",
       furias: 50,
+      link: "/perfil"
     },
     {
       id: "login-streak-30",
       title: "Login por 30 dias seguidos",
       description: "Faça login por 30 dias consecutivos.",
       furias: 100,
+      link: "/perfil"
     },
     {
       id: "quiz-facil",

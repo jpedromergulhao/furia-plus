@@ -44,12 +44,12 @@ function Quizzes() {
     };
 
     useEffect(() => {
-        if (activeQuiz === 'personal' && userData?.address) {
+        if (userData?.address || user.isQuizFinished) {
             setShowParticles(true)
         } else (
             setShowParticles(false)
         )
-    }, [userData, activeQuiz])
+    }, [userData, activeQuiz, user.isQuizFinished])
 
     return (
         <>
