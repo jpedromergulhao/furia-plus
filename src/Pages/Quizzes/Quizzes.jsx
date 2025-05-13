@@ -44,12 +44,13 @@ function Quizzes() {
     };
 
     useEffect(() => {
-        if (userData?.address || user.isQuizFinished) {
-            setShowParticles(true)
-        } else (
-            setShowParticles(false)
-        )
-    }, [userData, activeQuiz, user.isQuizFinished])
+        if ((activeQuiz === 'personal' && userData?.address) ||
+            ((activeQuiz === 'easy' || activeQuiz === 'moderate' || activeQuiz === 'hard') && user.isQuizFinished)) {
+            setShowParticles(true);
+        } else {
+            setShowParticles(false);
+        }
+    }, [userData, activeQuiz, user?.isQuizFinished]); 
 
     return (
         <>
