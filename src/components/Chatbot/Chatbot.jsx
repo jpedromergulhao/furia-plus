@@ -3,6 +3,7 @@ import './Chatbot.css';
 import { Link } from 'react-router-dom';
 import { getRandomGreeting, getBotReply } from '../../utils/chatbot';
 import { useSelector } from "react-redux";
+import sendIcon from '../../assets/send.png'
 
 function Chatbot({ isOpen, onClose }) {
   const [userMessage, setUserMessage] = useState("");
@@ -127,7 +128,9 @@ function Chatbot({ isOpen, onClose }) {
             value={userMessage}
             onChange={(e) => setUserMessage(e.target.value)}
           />
-          <button type="submit">Enviar</button>
+          <button type="submit" aria-label="Enviar mensagem">
+            <img src={sendIcon} alt="Icone de enviar mensagem" />
+          </button>
         </form>
       </div>
     </div>
