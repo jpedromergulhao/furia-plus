@@ -120,6 +120,46 @@ function MainLayout() {
             },
           },
           {
+            element: "#news-driver",
+            popover: {
+              title: "Notícias",
+              description: "Aqui você pode ficar por dentro de todas as notícias sobre a FURIA.",
+              position: "top",
+            },
+          },
+          {
+            element: "#chall-driver",
+            popover: {
+              title: "Desafios",
+              description: "Acesse os desafios do FURIA+ por aqui.",
+              position: "top",
+            },
+          },
+          {
+            element: "#rew-driver",
+            popover: {
+              title: "Recompensas",
+              description: "Para conquistar suas recompensas é só vir para essa área",
+              position: "top",
+            },
+          },
+          {
+            element: "#liv-driver",
+            popover: {
+              title: "Jogos ao vivo e Reprises",
+              description: "Para assistir aos jogos e reprises dos time da Furia é só clicar aqui.",
+              position: "top",
+            },
+          },
+          {
+            element: "#prof-driver",
+            popover: {
+              title: "Perfil",
+              description: "Nessa área você vai ter acesso a tudo relacionado ao seu perfil. Por aqui também é possível fazer logout ou deletar a sua conta.",
+              position: "top",
+            },
+          },
+          {
             popover: {
               title: "Aproveite o FURIA+",
               description: "Agora é só aproveitar! O app foi feito para você.",
