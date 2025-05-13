@@ -21,6 +21,8 @@ import csWallpaper from '../../assets/CS_Wallpaper.png';
 import lolWallpaper from '../../assets/LOL_Wallpaper.png';
 import valWallpaper from '../../assets/Valorant_Wallpaper.png';
 import r6Wallpaper from '../../assets/R6_Wallpaper.png';
+import fcWallpaper from '../../assets/FC_Wallpaper.png';
+import redWallpaper from '../../assets/RED_Wallpaper.png';
 
 // Função para recortar imagem
 const getCroppedImg = async (imageSrc, maxSize = 1024) => {
@@ -194,7 +196,7 @@ function Profile() {
             reader.onloadend = async () => {
                 try {
                     const cropped = await getCroppedImg(reader.result, 1024);
-                    if (cropped === null){
+                    if (cropped === null) {
                         setIsProcessing(false);
                         return alert("⚠️ Erro ao processar a imagem. Tente novamente")
                     }
@@ -223,7 +225,9 @@ function Profile() {
             CS: csWallpaper,
             LOL: lolWallpaper,
             Val: valWallpaper,
-            R6: r6Wallpaper
+            R6: r6Wallpaper,
+            FC: fcWallpaper,
+            RED: redWallpaper
         };
         return images[src] || '';
     }
