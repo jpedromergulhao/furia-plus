@@ -129,7 +129,7 @@ function Chatbot({ isOpen, onClose }) {
             onChange={(e) => setUserMessage(e.target.value)}
           />
           <button type="submit" aria-label="Enviar mensagem">
-            <img src={sendIcon} alt="Icone de enviar mensagem" />
+            <img src={sendIcon} alt="Icone de enviar mensagem" loading="lazy"/>
           </button>
         </form>
       </div>
